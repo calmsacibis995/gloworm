@@ -14,6 +14,7 @@
 #include <kernel/syscall.h>
 #include <kernel/driver.h>
 #include <kernel/printk.h>
+#include <kernel/macros.h>
 #include <kernel/scheduler.h>
 
 #include "proc/tasks.h"
@@ -152,10 +153,11 @@ int main()
 	for (char i = 0; protocols[i]; i++)
 		protocols[i]->init();
 
-
 	printk_safe("minixfs: mounting (%x) at %s\n", root_dev, "/");
 	vfs_mount(NULL, "/", root_dev, &minix_mount_ops, 0, SU_UID);
 
+	printk_safe("Root on %d,%d\n", major(root_dev), minor(root_dev));
+	
 
 	// TODO this would be moved elsewhere
 	create_dir_or_panic("/bin");
@@ -186,4 +188,3 @@ int main()
 
 	begin_multitasking();
 }
-

@@ -71,7 +71,7 @@ void fatal_error(uint8_t *sp)
 
 	printf("\n\nFatal Error with SP: %x\n", sp);
 	printf("PC: %x\nStack Dump with Registers:\n", *((uint32_t *) &sp[15 * 4 + 2]));
-	dump(sp, 100);
+	dump((const uint16_t *)sp, 100);
 	printf("Resetting...\n");
 }
 

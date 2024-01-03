@@ -610,7 +610,7 @@ int do_pipe(int pipefd[2])
 	// Find two unused file descriptor slots in the current process's fd table (no need to free them until set_fd())
 	pipefd[PIPE_READ_FD] = find_unused_fd(current_proc->fd_table);
 	// TODO this is terrible and I shouldn't do this, but at least it works for the time being
-	set_fd(current_proc->fd_table, pipefd[PIPE_READ_FD], 1);
+	set_fd(current_proc->fd_table, pipefd[PIPE_READ_FD], (struct vfile *)1);
 	pipefd[PIPE_WRITE_FD] = find_unused_fd(current_proc->fd_table);
 	set_fd(current_proc->fd_table, pipefd[PIPE_READ_FD], NULL);
 
